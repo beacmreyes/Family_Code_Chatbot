@@ -1,4 +1,4 @@
 streamlit
 pandas
 openai
-chromadb==0.5.3
+chromadb
