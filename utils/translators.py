@@ -3,7 +3,7 @@ import openai
 from openai import OpenAI
 
 # Load environment variables from .env file
-api_key = st.secrets["api_key"]##open('openaiapikey.txt').read()##os.getenv('OPENAI_API_KEY')
+api_key = st.secrets["api_key"] #open('openaiapikey.txt').read()##os.getenv('OPENAI_API_KEY')#  
 openai.api_key = api_key
 
 #Initialize OpenAI client for the prompts

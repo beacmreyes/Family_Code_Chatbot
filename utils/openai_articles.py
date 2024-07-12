@@ -1,7 +1,3 @@
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
 import streamlit as st
 import openai
 from openai import OpenAI
@@ -10,7 +6,7 @@ from chromadb.utils import embedding_functions
 import re
 
 # Load environment variables from .env file
-api_key = st.secrets["api_key"] ##open('openaiapikey.txt').read()##os.getenv('OPENAI_API_KEY')
+api_key = st.secrets["api_key"] #open('openaiapikey.txt').read()##os.getenv('OPENAI_API_KEY')#  
 openai.api_key = api_key
 
 CHROMA_DATA_PATH = 'family_code'
@@ -165,6 +161,7 @@ def related_articles_answer(user_input):
 
 
 # def related_articles_answer(user_input):
+#     # return None, None, error_message
 #     related_articles_metadatas = [{'article_number': 184, 'chapter': 'N/A', 'chapter_number': 0, 'section': 'N/A', 'section_number': 0, 'title': 'ADOPTION', 'title_number': 'TITLE VII', 'article': ' Article 184: The following persons may not adopt:\n(1) The guardian with respect to the ward prior to the approval of the final accounts rendered upon the termination of their guardianship relation;\n(2) Any person who has been convicted of a crime involving moral turpitude;\n(3) An alien, except:\n(a) A former Filipino citizen who seeks to adopt a relative by consanguinity;\n(b) One who seeks to adopt the legitimate child of his or her Filipino spouse; or\n(c) One who is married to a Filipino citizen and seeks to adopt jointly with his or her spouse a relative by consanguinity of the latter.\nAliens not included in the foregoing exceptions may adopt Filipino children in accordance with the rules on inter-country adoptions as may be provided by law. (28a, E. O. 91 and PD 603)\n'}, {'article_number': 188, 'chapter': 'N/A', 'chapter_number': 0, 'section': 'N/A', 'section_number': 0, 'title': 'ADOPTION', 'title_number': 'TITLE VII', 'article': " Article 188: The written consent of the following to the adoption shall be necessary:\n(1) The person to be adopted, if ten years of age or over,\n(2) The parents by nature of the child, the legal guardian, or the proper government instrumentality;\n(3) The legitimate and adopted children, ten years of age or over, of the adopting parent or parents;\n(4) The illegitimate children, ten years of age or over, of the adopting parent, if living with said parent and the latter's spouse, if any; and\n(5) The spouse, if any, of the person adopting or to be adopted. (31a, E. O. 91 and PD 603)\n"}, {'article_number': 187, 'chapter': 'N/A', 'chapter_number': 0, 'section': 'N/A', 'section_number': 0, 'title': 'ADOPTION', 'title_number': 'TITLE VII', 'article': ' Article 187: The following may not be adopted:\n(1) A person of legal age, unless he or she is a child by nature of the adopter or his or her spouse, or, prior to the adoption, said person has been consistently considered and treated by the adopter as his or her own child during minority.\n(2) An alien with whose government the Republic of the Philippines has no diplomatic relations; and\n(3) A person who has already been adopted unless such adoption has been previously revoked or rescinded. (30a, E. O. 91 and PD 603)\n'}, {'article_number': 183, 'chapter': 'N/A', 'chapter_number': 0, 'section': 'N/A', 'section_number': 0, 'title': 'ADOPTION', 'title_number': 'TITLE VII', 'article': ' Article 183: A person of age and in possession of full civil capacity and legal rights may adopt, provided he is in a position to support and care for his children, legitimate or illegitimate, in keeping with the means of the family.\nOnly minors may be adopted, except in the cases when the adoption of a person of majority age is allowed in this Title.\nIn addition, the adopter must be at least sixteen years older than the person to be adopted, unless the adopter is the parent by nature of the adopted, or is the spouse of the legitimate parent of the person to be adopted. (27a, E. O. 91 and PD 603)\n'}, {'article_number': 189, 'chapter': 'N/A', 'chapter_number': 0, 'section': 'N/A', 'section_number': 0, 'title': 'ADOPTION', 'title_number': 'TITLE VII', 'article': ' Article 189: Adoption shall have the following effects:\n(1) For civil purposes, the adopted shall be deemed to be a legitimate child of the adopters and both shall acquire the reciprocal rights and obligations arising from the relationship of parent and child, including the right of the adopted to use the surname of the adopters;\n(2) The parental authority of the parents by nature over the adopted shall terminate and be vested in the adopters, except that if the adopter is the spouse of the parent by nature of the adopted, parental authority over the adopted shall be exercised jointly by both spouses; and\n(3) The adopted shall remain an intestate heir of his parents and other blood relatives. (39(1)a, (3)a, PD 603)\n'}]
     
     
