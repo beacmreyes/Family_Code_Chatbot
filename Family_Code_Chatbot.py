@@ -1,6 +1,7 @@
 import streamlit as st
 import time
 from utils.openai_articles import related_articles_answer
+from utils.openai_cases import return_top_cases
 from utils.translators import translate_to_english, translate_from_english
 
 
@@ -35,6 +36,42 @@ def get_index_selected(selected, options):
 
 language_options = ['English', 'Filipino']
 
+@st.experimental_fragment()
+def answers_on_language(question,answer, question_language):
+    a_language_col1, a_language_col2, a_language_col3 = st.columns([6,1,1])
+    a_language_col2.markdown("<div style='padding-top:35px; text-align:right;font-size: 14px' >Answer Language: </div>", unsafe_allow_html=True)
+    answer_language = a_language_col3.selectbox('', language_options, get_index_selected(question_language,language_options) ,key = 'answer_language')
+    # a_language_col4.markdown("<div style='height: 28px'></div>", unsafe_allow_html=True)
+    # translate_answer = a_language_col4.button('Translate', key = 'translate_answer',type="secondary", use_container_width=True)
+
+    if answer_language != 'English':
+        answer_translated = translate_from_english(answer, answer_language)
+        display_answer = answer_translated 
+    else:
+        display_answer = answer
+
+    answer_col1, answer_col2, answer_col3 = st.columns([1,6,1])
+    answer_col2.markdown(display_answer.replace('\n', '<br>'), unsafe_allow_html=True)
+    save_data('answer_language', answer_language)
+
+@st.experimental_fragment()
+def sample_questions():
+    a_language_col1, a_language_col2, a_language_col3 = st.columns([6,1,1])
+    a_language_col2.markdown("<div style='padding-top:35px; text-align:right;font-size: 14px' >Answer Language: </div>", unsafe_allow_html=True)
+    answer_language = a_language_col3.selectbox('', language_options, get_index_selected(question_language,language_options) ,key = 'answer_language')
+    # a_language_col4.markdown("<div style='height: 28px'></div>", unsafe_allow_html=True)
+    # translate_answer = a_language_col4.button('Translate', key = 'translate_answer',type="secondary", use_container_width=True)
+
+    if answer_language != 'English':
+        answer_translated = translate_from_english(answer, answer_language)
+        display_answer = answer_translated 
+    else:
+        display_answer = answer
+
+    answer_col1, answer_col2, answer_col3 = st.columns([1,6,1])
+    answer_col2.markdown(display_answer.replace('\n', '<br>'), unsafe_allow_html=True)
+    save_data('answer_language', answer_language)
+                
 def main():
     init()
     st.set_page_config(layout="wide")
@@ -47,7 +84,7 @@ def main():
     q_col4.markdown("<div style='height: 28px'></div>", unsafe_allow_html=True)
     submit_question = q_col4.button('Enter', key = 'submit_question',type="primary", use_container_width=True)
 
-    if submit_question:
+    if submit_question and (len(question_temp.strip())>0):
         save_data('question_language', question_language_temp)
         save_data('question', question_temp)
     
@@ -66,42 +103,41 @@ def main():
         # st.write(related_articles_metadatas)
         
     
-        @st.experimental_fragment()
-        def answers_on_language(question,answer):
-            a_language_col1, a_language_col2, a_language_col3 = st.columns([6,1,1])
-            a_language_col2.markdown("<div style='padding-top:35px; text-align:right;font-size: 14px' >Answer Language: </div>", unsafe_allow_html=True)
-            answer_language = a_language_col3.selectbox('', language_options, get_index_selected(question_language,language_options) ,key = 'answer_language')
-            # a_language_col4.markdown("<div style='height: 28px'></div>", unsafe_allow_html=True)
-            # translate_answer = a_language_col4.button('Translate', key = 'translate_answer',type="secondary", use_container_width=True)
 
-            if answer_language != 'English':
-                answer_translated = translate_from_english(answer, answer_language)
-                display_answer = answer_translated 
-            else:
-                display_answer = answer
+        answers_on_language(question,answer, question_language)
 
-            answer_col1, answer_col2, answer_col3 = st.columns([1,6,1])
-            answer_col2.markdown(display_answer.replace('\n', '<br>'), unsafe_allow_html=True)
-            save_data('answer_language', answer_language)
-
-
-        answers_on_language(question,answer)
-
-        @st.experimental_fragment()
-        def related_articles_combined_on_language(related_articles_metadatas):  
+        if related_articles_metadatas:
             article_h_col1, article_h_col2, article_h_col3, article_h_col4 = st.columns([0.5,5.5,1,1])
             article_h_col2.header('\n\nLegal Basis:')
             #st.markdown('Articles From Family Code', unsafe_allow_html=True) 
             answer_col1, answer_col2, answer_col3 = st.columns([1,6,1])
+            # st.write(related_articles_metadatas)
             for m in related_articles_metadatas:
-                article = m['article']
-                display_article = article            
-                answer_col2.markdown(display_article.replace('\n', '<br>'), unsafe_allow_html=True) 
-        related_articles_combined_on_language(related_articles_metadatas)
+                
+                article_text = m['article'].split(':')
+                article_text = ':'.join(article_text[1:]).replace('\n', '<br>')
+                article_html = f"""
+                    - <span style="font-size: 16px; padding-bottom: 0;"><strong> ARTICLE {m['article_number']}:</strong>
+                        {article_text}</span>
+                    """
+                answer_col2.markdown(article_html, unsafe_allow_html=True) 
 
-        
-        #     st.write(related_articles_combined)
-        #     st.write(related_articles_metadatas)
+        if related_articles_metadatas:
+            top_cases = return_top_cases(question_english,5)
+            article_h_col1, article_h_col2, article_h_col3, article_h_col4 = st.columns([0.5,5.5,1,1])
+            if top_cases:
+                article_h_col2.header('\n\nRelated Cases:')
+                #st.markdown('Articles From Family Code', unsafe_allow_html=True) 
+                case_col1, case_col2, case_col3 = st.columns([1,6,1])
+                for c in top_cases:    
+                    case_html = f"""
+                    - <span style="font-size: 15px"><strong style="font-size: 16px">{c['title']}</strong>
+                      </br>{c['GR']}</span>
+                    
+                    """
+                    
+                    case_col2.markdown(case_html, unsafe_allow_html=True) 
+                                
         
 if __name__ == '__main__':
     main()
