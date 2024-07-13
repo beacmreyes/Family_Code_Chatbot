@@ -17,6 +17,7 @@ def page_details(language):
             "limitations": """
             1. Chatbot is only as up to date as the latest database update. The database for this app needs updating whenever the Family Code is ammended.
             2. The app requires internet connection to function.
+            3. This chatbot serves as a pre-consultation tool and does not substitute professional legal advice. Users are still advised to consult qualified lawyers for formal legal assistance.
             """,
             "citations": """
             1. Senate and House of Representatives. (1987). Executive Order No. 209, s. 1987 - The Family Code of the Philippines. Official Gazette of the Republic of the Philippines. Retrieved from https://www.officialgazette.gov.ph/1987/07/06/executive-order-no-209-s-1987/
@@ -43,6 +44,7 @@ def page_details(language):
             "limitations": """
             1. Ang Chatbot ay kasing updated lamang ng pinakahuling update ng database. Ang database para sa app na ito ay kailangang i-update tuwing may mga pagbabago sa Family Code.
             2. Ang app ay nangangailangan ng internet connection upang mag-function.
+            3. Ang chatbot na ito ay naglilingkod bilang isang pre-consultation tool at hindi pumalit sa propesyonal na legal na payo. Muling pinapayuhan ang mga gumagamit na kumunsulta sa mga lisensyadong abogado para sa opisyal na legal na tulong.
             """,
             "citations": """
             1. Senate and House of Representatives. (1987). Executive Order No. 209, s. 1987 - The Family Code of the Philippines. Official Gazette of the Republic of the Philippines. Retrieved from https://www.officialgazette.gov.ph/1987/07/06/executive-order-no-209-s-1987/
