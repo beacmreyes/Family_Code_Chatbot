@@ -104,7 +104,7 @@ def articles_to_answer(user_input,top_articles_combined, top_article_numbers):
 
 @st.cache_data(show_spinner = '')
 def answer_the_question(user_input, related_articles_combined):
-    system_prompt = "You are a chatbot that answers question regarding the articles of the Family Code of the Philippines that are ONLY provided by the user. Your goal is to answer the queries concisely and simply, in layman’s terms."
+    system_prompt = "You are a chatbot that answers question regarding the articles. Your goal is to answer the queries concisely and simply, in layman’s terms."
 
     main_prompt = f"""
     ###ARTICLES###
