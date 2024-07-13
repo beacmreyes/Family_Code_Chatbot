@@ -108,13 +108,13 @@ def main():
     else:
         st.title('PAMiLYA (Philippine Family Law Chatbot)')
         q_col1, q_col2, q_col3, q_col4= st.columns([1, 2, 5,1])
-    
+        st.write("✅ Your privacy matters. No user input is stored, retained, or collected, adhering to the Philippine Data Privacy Act of 2012.")
         q_col1.markdown("<div style='padding-top:35px; text-align:right;font-size: 14px' > Question: </div>", unsafe_allow_html=True)
         question_language_temp = q_col2.selectbox('', language_options, key = 'q_language')
         question_temp = q_col3.text_input('', key = 'question')
         q_col4.markdown("<div style='height: 28px'></div>", unsafe_allow_html=True)
         submit_question = q_col4.button('Enter', key = 'submit_question',type="primary", use_container_width=True)
-    
+        
         if submit_question and (len(question_temp.strip())>0):
             save_data('question_language', question_language_temp)
             save_data('question', question_temp)
