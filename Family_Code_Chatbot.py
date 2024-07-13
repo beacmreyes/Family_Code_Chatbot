@@ -135,6 +135,7 @@ def main():
         
     
             answers_on_language(question,answer, question_language)
+            st.write("""⚠️ Disclaimer: PAMiLYA's response is for <span style="color:blue;">informational purposes only</span> and is <span style="color:red;">not a substitute for professional legal advice</span> . Users are still advised to consult qualified lawyers for formal legal assistance.""", unsafe_allow_html=True) 
     
             if related_articles_metadatas:
                 st.header('\n\nLegal Basis:')
