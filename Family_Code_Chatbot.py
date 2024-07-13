@@ -4,6 +4,7 @@ from utils.openai_articles import related_articles_answer
 from utils.openai_cases import return_top_cases
 from utils.translators import translate_to_english, translate_from_english
 from utils.home_page import page_details
+from utils.family_code import family_code
 
 # Initialize state variables
 def init():
@@ -68,12 +69,19 @@ def answers_on_language(question,answer, question_language):
 def main():
     init()
     st.set_page_config(layout="wide")
+    st.sidebar.image('images/applogo.png', use_column_width=True)
+    st.markdown(
+        """<style>
+        [data-testid="stSidebar"] {
+            background-color: #F9E6C0;}
+        </style>""",unsafe_allow_html=True
+    )
 
-    my_page = st.sidebar.radio('Page Navigation',
-                           ['Home', 'PAMiLYA (Philippine Family Law Chatbot)'])
+    my_page = st.sidebar.radio('',
+                           ['Home', 'PAMiLYA (Philippine Family Law Chatbot)', 'Family Code of the Philippines'])
 
 
-
+    
     if my_page == 'Home':
         
         home_col1, home_col2= st.columns([6,3])
@@ -94,7 +102,9 @@ def main():
         st.write('Citations')
         st.caption(pages[page_language]["citations"])
 
-
+    elif my_page == 'Family Code of the Philippines':
+        family_code()
+    
     else:
         st.title('PAMiLYA (Philippine Family Law Chatbot)')
         q_col1, q_col2, q_col3, q_col4= st.columns([1, 2, 5,1])
