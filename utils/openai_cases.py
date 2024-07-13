@@ -11,7 +11,7 @@ from chromadb.utils import embedding_functions
 import re
 
 # Load environment variables from .env file
-api_key = st.secrets["api_key"] #open('openaiapikey.txt').read()##os.getenv('OPENAI_API_KEY')#  
+api_key =  st.secrets["api_key"] #open('openaiapikey.txt').read()##os.getenv('OPENAI_API_KEY')# 
 openai.api_key = api_key
 
 CHROMA_DATA_PATH = 'family_code_cases'
